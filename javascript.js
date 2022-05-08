@@ -12,15 +12,18 @@ function computerPlay(){
     }
 }
 
-let computerSelection = computerPlay()
-let playerSelection = "ROCK"
+
+
 
 //Make your function’s playerSelection parameter case-insensitive (so users can input rock, ROCK, RocK or any other variation).
 
-playerSelection = playerSelection.toLowerCase()
+
 
 //Write a function that plays a single round of Rock Paper Scissors. The function should take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock"
-function rockPaperScissors(playerSelection, computerSelection){
+function rockPaperScissors(){
+    let playerSelection = prompt('Please enter your play :)').toLowerCase()
+    let computerSelection = computerPlay()
+
     //if statement to lay out which hands beat which 
     if (playerSelection === 'rock' && computerSelection === 'scissors' ||
     playerSelection === 'scissors' && computerSelection === 'paper' ||
@@ -36,4 +39,13 @@ function rockPaperScissors(playerSelection, computerSelection){
 
 //Important note: you want to return the results of this function call, not console.log() them. You’re going to use what you return later on, so let’s test this function by using console.log to see the results:
 
-console.log(rockPaperScissors(playerSelection, computerSelection))
+console.log(rockPaperScissors())
+
+//Write a NEW function called game(). Call the playRound function inside of this one to play a 5 round game that keeps score and reports a winner or loser at the end.
+function game(){
+    for (let i = 1 ; i <= 5 ; i++){
+        console.log(rockPaperScissors())
+    }
+
+}
+game()

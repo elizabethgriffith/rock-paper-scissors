@@ -4,19 +4,36 @@ function computerPlay(){
     let randNum = Math.random()
     //assign to RPS based on < .33 and < .67
     if (randNum < 0.33){
-        return "Rock"
+        return "rock"
     } else if (randNum < 0.67) {
-        return "Paper"
+        return "paper"
     } else {
-        return "Scissors"
+        return "scissors"
     }
 }
 
-
-//Write a function that plays a single round of Rock Paper Scissors. The function should take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock"
-
+let computerSelection = computerPlay()
+let playerSelection = "ROCK"
 
 //Make your function’s playerSelection parameter case-insensitive (so users can input rock, ROCK, RocK or any other variation).
 
+playerSelection = playerSelection.toLowerCase()
+
+//Write a function that plays a single round of Rock Paper Scissors. The function should take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock"
+function rockPaperScissors(playerSelection, computerSelection){
+    //if statement to lay out which hands beat which 
+    if (playerSelection === 'rock' && computerSelection === 'scissors' ||
+    playerSelection === 'scissors' && computerSelection === 'paper' ||
+    playerSelection === 'paper' && computerSelection === 'rock'){
+        return `You win! ${playerSelection} beats ${computerSelection}!`
+    } else if (playerSelection === computerSelection){
+        return `You tie! You both played ${playerSelection}`
+    } else {
+        return `You lose! ${computerSelection} beats ${playerSelection}`
+    }
+    //output string declaring winner
+}
 
 //Important note: you want to return the results of this function call, not console.log() them. You’re going to use what you return later on, so let’s test this function by using console.log to see the results:
+
+console.log(rockPaperScissors(playerSelection, computerSelection))

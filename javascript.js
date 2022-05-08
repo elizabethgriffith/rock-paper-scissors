@@ -23,29 +23,35 @@ function computerPlay(){
 function rockPaperScissors(){
     let playerSelection = prompt('Please enter your play :)').toLowerCase()
     let computerSelection = computerPlay()
-
+    let winner
     //if statement to lay out which hands beat which 
     if (playerSelection === 'rock' && computerSelection === 'scissors' ||
     playerSelection === 'scissors' && computerSelection === 'paper' ||
     playerSelection === 'paper' && computerSelection === 'rock'){
-        return `You win! ${playerSelection} beats ${computerSelection}!`
+        console.log(`You win! ${playerSelection} beats ${computerSelection}!`) 
+        return winner = 'you'
+        
     } else if (playerSelection === computerSelection){
-        return `You tie! You both played ${playerSelection}`
+        console.log(`You tie! You both played ${playerSelection}`)
+        return winner = 'neither'        
+       
     } else {
-        return `You lose! ${computerSelection} beats ${playerSelection}`
+        console.log(`You lose! ${computerSelection} beats ${playerSelection}`)
+        return winner = 'computer'
+        
     }
+   
     //output string declaring winner
 }
 
-//Important note: you want to return the results of this function call, not console.log() them. You’re going to use what you return later on, so let’s test this function by using console.log to see the results:
-
-console.log(rockPaperScissors())
 
 //Write a NEW function called game(). Call the playRound function inside of this one to play a 5 round game that keeps score and reports a winner or loser at the end.
 function game(){
     for (let i = 1 ; i <= 5 ; i++){
         console.log(rockPaperScissors())
+  
+        
     }
-
+    
 }
 game()

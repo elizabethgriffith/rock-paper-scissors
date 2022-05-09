@@ -1,4 +1,18 @@
-//Your game is going to play against the computer, so begin with a function called computerPlay that will randomly return either ‘Rock’, ‘Paper’ or ‘Scissors’. We’ll use this function in the game to make the computer’s play. Tip: use the console to make sure this is returning the expected output before moving to the next step!
+// Grab everything with the input element
+const buttons = document.querySelectorAll('input')
+
+// Initialize score
+let computerScore = 0
+let playerScore = 0
+
+// Function to disable the buttons when the game is over forcing a refresh
+function disableButtons() {
+    buttons.forEach(elem => {
+        elem.disabled = true
+    })
+}
+
+// Computer's random selection
 function computerPlay(){
     //generate random number between 0 and 1
     let randNum = Math.random()
@@ -12,58 +26,78 @@ function computerPlay(){
     }
 }
 
-
-
-
-//Make your function’s playerSelection parameter case-insensitive (so users can input rock, ROCK, RocK or any other variation).
-
-
-
-//Write a function that plays a single round of Rock Paper Scissors. The function should take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock"
-function rockPaperScissors(){
-    let playerSelection = prompt('Please enter your play :)').toLowerCase()
+// A single round of rock paper scissors calling computer play function for computer selection
+function playRound(playerSelection){
+    
     let computerSelection = computerPlay()
-    // let winner
+    let result =""
+    
     //if statement to lay out which hands beat which 
     if ((playerSelection === 'rock' && computerSelection === 'scissors') ||
     (playerSelection === 'scissors' && computerSelection === 'paper') ||
     (playerSelection === 'paper' && computerSelection === 'rock')){
-        console.log(`You win! ${playerSelection} beats ${computerSelection}!`) 
-        return 'you'
+        playerScore += 1
+        // Capitalize first letter of player selection
+        playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1)
+        result = `You win! ${playerSelection} beats ${computerSelection}! <br>
+        Player Score: ${playerScore}<br>Computer Score: ${computerScore}`
+
+        
+        if (playerScore == 5) {
+            result += '<br><br>You won the game! Reload the page to play again'
+            disableButtons()
+        }
         
     } else if (playerSelection === computerSelection){
-        console.log(`You tie! You both played ${playerSelection}`)
-        return 'neither'        
+        result = `You tie! You both played ${playerSelection}!<br>
+        Player Score: ${playerScore}<br>Computer Score: ${computerScore}`
+        
        
     } else {
-        console.log(`You lose! ${computerSelection} beats ${playerSelection}`)
-        return 'computer'
+        computerScore += 1
+        computerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1)
+        result = `You lose! ${computerSelection} beats ${playerSelection}<br>
+        Player Score: ${playerScore}<br>Computer Score: ${computerScore}`
+        
+        if (computerScore === 5){
+            result += '<br><br>You won the game! Reload the page to play again'
+            disableButtons()
+        }
         
     }
+    document.getElementById('result').innerHTML = result
 }
 
 
-//Write a NEW function called game(). Call the playRound function inside of this one to play a 5 round game that keeps score and reports a winner or loser at the end.
-function game(){
-    let computerScore = 0
-    let playerScore = 0
-    for (let i = 0 ; i < 5 ; i++){   
-        let winner = rockPaperScissors()
-        console.log(winner)
-        if(winner === 'you'){
-            playerScore += 1
-        } else if (winner === 'computer'){
-            computerScore += 1
-        }
-    }
-    console.log(playerScore)
-    console.log(computerScore)
-    if (playerScore > computerScore){
-        console.log(`You win ${playerScore} to ${computerScore}`)
-    } else if (playerScore < computerScore){
-        console.log(`You lose ${computerScore} to ${playerScore}`)
-    } else {
-        console.log('You tie!')
-    }
-}
-game()
+
+
+// Function to keep score
+// function game(){
+    
+       
+//         let winner = playRound()
+        
+//         if(winner === 'you'){
+//             playerScore += 1
+//         } else if (winner === 'computer'){
+//             computerScore += 1
+//         }
+    
+  
+//     if (playerScore === 5){
+//         console.log(`Game over! Congrats, you beat the computer ${playerScore} to ${computerScore}. The scores have now reset`)
+//         computerScore = 0
+//         playerScore = 0
+//     } else if (computerScore === 5){
+//         console.log(`Game over! Woops, you lost to the computer ${computerScore} to ${playerScore}. The scores have now reset`)
+//         computerScore = 0
+//         playerScore = 0
+//     }
+// }
+
+// Take the value from the button and input it for playerSelection in playRound function
+buttons.forEach(button =>{
+    button.addEventListener('click', function(){
+        playRound(button.value)
+    })
+})
